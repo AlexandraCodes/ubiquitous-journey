@@ -6,7 +6,7 @@
 /*   By: alecasti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 22:35:16 by alecasti          #+#    #+#             */
-/*   Updated: 2021/04/15 15:02:24 by alecasti         ###   ########.fr       */
+/*   Updated: 2021/04/15 16:33:26 by alecasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,15 +53,10 @@ void    print_str(t_details details, char *str, int *width)
     int     min_space;
     int     min_word;
 
-   // min_space = width[0];
-   // mim_word = width[1];
     len = ft_strlen(str);
+    min_word = minimum_word_length(width[1], len);
+    min_space = minimum_space_size(width[0], min_word);
     /*
-    if (!details.min && !details.max)
-        write(1, str, len);
-*/
-    //
-    //
     if ((width[1] < len) && (width[1] >= 0))
         min_word = width[1];
     if (((width[1] >= len) && (width[1] >= 0)) || (width[1] < 0))
@@ -70,119 +65,43 @@ void    print_str(t_details details, char *str, int *width)
         min_space = min_word;
     if ((width[0] >= min_word) && (width[0] >= 0))
         min_space = width[0];
+    */
     if (details.minus)
     {
         write (1, ft_strcut(str, min_word), min_word);
-        i = 0;
-        while (i < (min_space - min_word))
-        {
+        i = -1;
+        while (++i < (min_space - min_word))
             write(1, " ", 1);
-            i++;
-        }
     }
     else
     {
-        i = 0;
-        while (i < (min_space - min_word))
-        {
+        i = -1;
+        while (++i < (min_space - min_word))
             write(1, " ", 1);
-            i++;
-        }
         write(1, ft_strcut(str, min_word), min_word);
     }
-    //
-    //
+}
+
+int     minimum_word_length(int min_len, int len)
+{
+    if ((min_len < len) && (min_len >= 0))
+        return min_len;
+    return len;
+    /*;
+    if (((min_len >= len) && (min_len >= 0)) || (min_len < 0))
+        return len;
+    */
+}
+
+int     minimum_space_size(int min_space, int min_len)
+{
+    if ((min_space >= min_len) && (min_space >= 0))
+        return min_space;
+    return min_len;
     /*
-    i = 0;
-    if (details.minus)
-    {
-        while (i < 
-    }
-    //
-    //
-
-  //  printf("\nTHIS IS MIN -- %d\nTHIS IS MAX -- %d\n", width[0], width[1]);
-    if (details.min && !details.max)
-    {
-        //printf("details.min && !details.max");
-        if (width[0] < len) // details.minus doesn't matter
-            write(1, str, len);
-        else
-        {
-            i = 0;
-            if (details.minus)
-            {
-                write(1, str, len);
-                while (i < (width[0] -len))
-                {
-                    write(1, " ", 1);
-                    i++;
-                }
-               // write(1, " ", (width[1] - len));
-            }
-            else
-            {
-                while (i < (width[0] - len))
-                {
-                    write(1, " ", 1);
-                    i++;
-                }
-               // write(1, " ", (width[1] - len));
-                write(1, str, len);
-            }
-        }
-    }
-
-    if (details.max && !details.min)
-    {
-        if (width[1] < len) // write substring -- minus doesn't matter, same either way
-            write(1, ft_strcut(str, width[1]), width[1]);
-        else // minus doesn't matter
-            write(1, str, len);
-    }
-
-    if (details.max && details.min)
-    {
-        if (width[0] < width[1])
-        {
-            if (width[1] < len)
-                write(1, ft_strcut(str, width[1]), width[1]);
-            else
-                write(1, str, len);
-        }
-        else
-        {
-            if (width[1] < len)
-            {
-                if (details.minus)
-                {
-                    write(1, ft_strcut(str, width[1]), width[1]);
-                    write(1, " ", (width[0] - width[1]));
-                }
-                else
-                {
-                    i = 0;
-                    while (i++ < (width[0] - width[1]))
-                        write(1, " ", 1);
-                    //write(1, " ", (width[1] - width[2]));
-                    write(1, ft_strcut(str, width[1]), width[1]);
-                }
-            }
-            else
-            {
-                if (details.minus)
-                {
-                    write(1, str, len);
-                    write(1, " ", (width[0] - width[1]));
-                }
-                else
-                {
-                    write(1, " ", (width[0] - width[1]));
-                    write(1, str, len);
-                }
-            }
-        }
-    }*/
+    if (((min_space < min_len) && (min_space >= 0)) || (min_space < 0))
+        return min_len;
+    */
 }
 
 char    *ft_strcut(char *str, int len)
