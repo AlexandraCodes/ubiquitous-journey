@@ -6,7 +6,7 @@
 /*   By: alecasti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 22:35:16 by alecasti          #+#    #+#             */
-/*   Updated: 2021/04/15 16:39:04 by alecasti         ###   ########.fr       */
+/*   Updated: 2021/04/15 17:12:00 by alecasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,21 @@ void    execute_identifier(t_details deets, char letter, va_list arg, int *width
     */
 }
 
+void    print_char()
+{
+
+}
+
+
+
+/////////////////////////////////////////////////////////
+/*
+ *
+ *  EVERYTHING BELOW HERE IS FOR PRINT_STRING EXECUTION 
+ *
+ */
+/////////////////////////////////////////////////////////
+
 void    print_str(t_details details, char *str, int *width)
 {
     int     len;
@@ -57,17 +72,33 @@ void    print_str(t_details details, char *str, int *width)
     len = ft_strlen(str);
     min_word = minimum_word_length(width[1], len);
     min_space = minimum_space_size(width[0], min_word);
-    if (!details.minus)
-    {
-        while (++i < (min_space - min_word))
-            write(1, " ", 1);
-    }
-    write(1, ft_strcut(str, min_word), min_word);
-    if (details.minus)
-    {
-        while (++i < (min_space - min_word))
-            write(1, " ", 1);
-    }
+    (!details.minus) && print_whitespace(min_space - min_word);
+    print_substr(str, min_word);
+    (details.minus) && print_whitespace(min_space - min_word);
+}
+
+void    print_substr(char *str, int len)
+{
+    int     i;
+    char    *temp;
+
+    i = -1;
+    temp = ft_strnew(len);
+    temp[len] = '\0';
+    while (++i < len)
+        temp[i] = str[i];
+    write(1, temp, (len + 1));
+    free(temp);
+}
+
+int    print_whitespace(int len)
+{
+    int     i;
+
+    i = -1;
+    while (++i < len)
+        write(1, " ", 1);
+    return 1;
 }
 
 int     minimum_word_length(int min_len, int len)
@@ -75,10 +106,6 @@ int     minimum_word_length(int min_len, int len)
     if ((min_len < len) && (min_len >= 0))
         return min_len;
     return len;
-    /*;
-    if (((min_len >= len) && (min_len >= 0)) || (min_len < 0))
-        return len;
-    */
 }
 
 int     minimum_space_size(int min_space, int min_len)
@@ -86,24 +113,4 @@ int     minimum_space_size(int min_space, int min_len)
     if ((min_space >= min_len) && (min_space >= 0))
         return min_space;
     return min_len;
-    /*
-    if (((min_space < min_len) && (min_space >= 0)) || (min_space < 0))
-        return min_len;
-    */
-}
-
-char    *ft_strcut(char *str, int len)
-{
-    char    *copy;
-    int     i;
-
-    i = 0;
-    copy = ft_strnew(len);
-    copy[len] = '\0';
-    while (i < len)
-    {
-        copy[i] = str[i];
-        i++;
-    }
-    return (copy);
 }
