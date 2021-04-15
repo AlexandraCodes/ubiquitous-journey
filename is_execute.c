@@ -6,7 +6,7 @@
 /*   By: alecasti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 22:35:16 by alecasti          #+#    #+#             */
-/*   Updated: 2021/04/15 16:33:26 by alecasti         ###   ########.fr       */
+/*   Updated: 2021/04/15 16:39:04 by alecasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,32 +53,20 @@ void    print_str(t_details details, char *str, int *width)
     int     min_space;
     int     min_word;
 
+    i = -1;
     len = ft_strlen(str);
     min_word = minimum_word_length(width[1], len);
     min_space = minimum_space_size(width[0], min_word);
-    /*
-    if ((width[1] < len) && (width[1] >= 0))
-        min_word = width[1];
-    if (((width[1] >= len) && (width[1] >= 0)) || (width[1] < 0))
-        min_word = len;
-    if (((width[0] < min_word) && (width[0] >= 0)) || (width[0] < 0))
-        min_space = min_word;
-    if ((width[0] >= min_word) && (width[0] >= 0))
-        min_space = width[0];
-    */
-    if (details.minus)
+    if (!details.minus)
     {
-        write (1, ft_strcut(str, min_word), min_word);
-        i = -1;
         while (++i < (min_space - min_word))
             write(1, " ", 1);
     }
-    else
+    write(1, ft_strcut(str, min_word), min_word);
+    if (details.minus)
     {
-        i = -1;
         while (++i < (min_space - min_word))
             write(1, " ", 1);
-        write(1, ft_strcut(str, min_word), min_word);
     }
 }
 
