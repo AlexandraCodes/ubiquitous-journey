@@ -6,15 +6,15 @@
 /*   By: alecasti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/04 20:29:15 by alecasti          #+#    #+#             */
-/*   Updated: 2021/04/06 02:39:33 by alecasti         ###   ########.fr       */
+/*   Updated: 2021/04/21 13:41:59 by alecasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-int     is_flag(char letter)
+int		is_flag(char letter)
 {
-    if (is_minus(letter) || is_zero(letter))
-        return 1;
-    return 0;
+	if (is_minus(letter) || is_zero(letter))
+		return (1);
+	return (0);
 }
