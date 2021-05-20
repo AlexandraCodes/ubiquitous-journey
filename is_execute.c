@@ -6,18 +6,19 @@
 /*   By: alecasti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 22:35:16 by alecasti          #+#    #+#             */
-/*   Updated: 2021/04/21 13:48:15 by alecasti         ###   ########.fr       */
+/*   Updated: 2021/05/20 16:50:34 by alecasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 #include "stdio.h"
 
-void	execute_identifier(t_details deets, char letter, va_list arg, int *width)
+void	exec_identifier(t_details deets, char letter, va_list arg, int *width)
 {
 	//char    type_char;
 	char	*type_str;
-	//int     type_int;
+	int     type_int;
+	void	*type_ptr;
 	/*
 	   if (letter == 'c')
 	   {
@@ -35,46 +36,45 @@ void	execute_identifier(t_details deets, char letter, va_list arg, int *width)
 		  print_dec(deets, type_int);
 		  }
 		  */
-	/*
-	   if (letter == 'u')
-	   print_int();
-	   */
-	if ((letter == 'x') && (type_int = va_arg(arg, int)))
-		print_hex(deets, type_int, width, 0);
-	if ((letter == 'X') && (type_int = va_arg(arg, int)))
-		print_hex(deets, type_int, width, 1);
+	if (letter == 'p' && (type_ptr = va_arg(arg, void *)))
+		print_ptr(type_ptr);
+
+	if ((letter == 'd' || letter == 'i' || letter == 'u' || letter == 'x' || letter == 'X') && (type_int = va_arg(arg, int)))
+		print_hex(deets, type_int, width, letter);
+	//if ((letter == 'x' || letter == 'X') && (type_int = va_arg(arg, int)))
+	//	print_hex(deets, type_int, width, letter);
 }
 
-char    *convert_to_hex(int val, char letter)
+void	print_ptr(void *ptr)
 {
-	int     index;
-	int     new_val;
-	int     remainder;
-	char    legend[2];
+	char *str;
+	int		i;
 
-	new_val = 16;
-	legend[0] = "0123456789abcdef";
-	legend[1] = "0123456789ABCEDF";
-
-	while (val > new_val)
-		new_val = new_val * 16;
-	if (val < new_val)
-		new_val = new_val / 16;
-	while (new_val > 0)
-	{
-		index = val / new_val;
-		remainder = val % new_val;
-		write(1, &legend[letter][index], 1);
-		new_val = new_val /16;
-		val = remainder;
-	}
+	str = ft_strnew(50);
+	i = (int)ptr;
+	convert_to_base_str(i, str, 16, 'x');
 }
 
-void	print_hex(t_details details, int num, int *width, int x_case)
+
+
+void	print_hex(t_details details, int num, int *width, char type)
 {
 	char	*hex;
 
-	hex = convert_to_hex(num, letter);
+	// why 12?
+	hex = ft_strnew(12);
+	if (type == 'x' || type == 'X')
+		convert_to_base_str(num, hex, 16, type);
+	if (type == 'd' || type == 'i' || type == 'u')
+		convert_to_base_str(num, hex, 10, type);
+
+	printf("this is hex value -- %s\n", hex);
+
+	int		*h;
+	t_details	det;
+
+	h = width;
+	det = details;
 }
 
 

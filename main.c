@@ -6,7 +6,7 @@
 /*   By: alecasti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/04 12:41:49 by alecasti          #+#    #+#             */
-/*   Updated: 2021/04/15 02:22:29 by alecasti         ###   ########.fr       */
+/*   Updated: 2021/05/20 16:49:24 by alecasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,31 @@ int     main(int ac, char *av[])
     int ret;
 
     printf("%d %s\n\n", ac, av[0]);
-    ret = ft_printf("MY_PRINTF --- \n%10.15s\n\n", "Hello, World!");
+	
+    printf("=====================================\n");
+	
+	int val = 1991687980;
+	char pt[] = "asd";
+
+	ft_printf(":%x:  x\n", val);
+	ft_printf(":%d:		d\n", val);
+	ft_printf(":%p:		p\n", pt);
+/*
+	printf(":%x:  x\n", val);
+	printf(":%15x:  15x\n", val);
+	printf(":%.10x:  .10x\n", val);
+	printf(":%-10x:  -10x\n", val);
+	printf(":%-15x:  -15x\n", val);
+    printf(":%-.30x:  -.30x\n", val);
+	printf(":%-.10x:  -.10x\n", val);
+	printf(":%3.10x:  3.10x\n", val);
+	printf(":%3.30x:  3.30x\n", val);
+	printf(":%15.30x:  15.30x\n", val);
+	printf(":%-35.10x:  -35.10x\n", val);
+    */
+    printf("=====================================\n");
+	
+	ret = ft_printf("MY_PRINTF --- \n%10.15s\n\n", "Hello, World!");
     printf("PRINTF --- is supposed to print - - 0 8 3 9 8 . 2 0 3 9 8 1 2 3\n");
 
     printf("=====================================\n");

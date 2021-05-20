@@ -6,7 +6,7 @@
 /*   By: alecasti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/04 22:41:53 by alecasti          #+#    #+#             */
-/*   Updated: 2021/04/13 02:12:20 by alecasti         ###   ########.fr       */
+/*   Updated: 2021/05/20 15:51:41 by alecasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,4 +78,44 @@ int     ft_strlen(char *s)
     while (s[i] != '\0')
         i++;
     return (i);
+}
+
+char	*ft_strcpy(char *dst, char *src)
+{
+	int		i;
+
+	i = 0;
+	while (src[i] != '\0')
+	{
+		dst[i] = src[i];
+		i++;
+	}
+	dst[i] = '\0';
+	return (dst);
+}
+
+void	convert_to_base_str(int num, char *str, int base, char type)
+{
+	int		i;
+	int		j;
+	
+	i = 12;
+	j = 0;
+	while (num > 0)
+	{
+		if ((num % base) > 9)
+		{
+			if (type == 'x')
+				str[i] = ('a' + ((num % base) - 10));
+			if (type == 'X')
+				str[i] = ('A' + ((num % base) - 10));
+		}
+		else
+			str[i] = ('0' + (num % base));
+		i--;
+		num = num / base;
+	}
+	while (++i < 13)
+		str[j++] = str[i];
+	str[j] = 0;
 }
