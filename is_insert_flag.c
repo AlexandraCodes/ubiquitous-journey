@@ -37,3 +37,10 @@ int     is_period(char letter)
         return 1;
     return 0;
 }
+
+char		is_integer(char possible_integer)
+{
+	if (possible_integer > 47 && possible_integer < 58)
+		return (possible_integer);
+	return ('-');
+}

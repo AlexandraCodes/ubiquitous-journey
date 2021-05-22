@@ -8,9 +8,11 @@ CFLAGS = -Wall -Werror -Wextra
 
 INC_PATH = printf.h
 
+SRC_NAME_TWO = is_libft.c is_insert_flag.c is_put.c is_error.c is_create.c is_parse.c printf.c main.c
+
 SRC_NAME = is_flag.c is_libft.c is_insert_flag.c printf.c main.c is_execute.c
 
-OBJ_NAME = $(SRC_NAME:.c=.o)
+OBJ_NAME = $(SRC_NAME_TWO:.c=.o)
 
 all: $(NAME)
 

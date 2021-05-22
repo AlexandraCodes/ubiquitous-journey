@@ -52,22 +52,20 @@ char    *ft_strnew(int size)
     return (str);
 }
 
-char    *ft_strchr(char *str, int c)
+int     ft_strchr(char *str, char c)
 {
     unsigned int    i;
     unsigned int    len;
 
     i = 0;
-    len = 0;
-    while (str[len] != '\0')
-        len++;
+    len = ft_strlen(str);
     while (i <= len)
     {
-        if (str[i] == (char)c)
-            return ((char *)str + i);
+        if (str[i] == c)
+            return (i);
         i++;
     }
-    return (NULL);
+    return (-1);
 }
 
 int     ft_strlen(char *s)
@@ -94,7 +92,35 @@ char	*ft_strcpy(char *dst, char *src)
 	return (dst);
 }
 
-void	convert_to_base_str(int num, char *str, int base, char type)
+
+void    int_to_str(t_pf *obj, int num, char *str)
+{
+    int     i;
+    int     j;
+
+    i = 0;
+    j = 12;
+    if (num < 0)
+    {
+        i++;
+        num = -num;
+    }
+    while (num > 0)
+    {
+        str[j] = ((num % 10) + '0');
+        j--;
+        num = num/10;
+    }
+    // set the minus flag, then write num normal
+    if (i == 1)
+        str[0] = '-';
+    while (++j < 13)
+        str[i++] = str[j];
+    str[i] = 0;
+    obj->conv_len = i;
+}
+
+void	convert_to_base_str(t_pf *obj, int num, char *str)
 {
 	int		i;
 	int		j;
@@ -103,19 +129,38 @@ void	convert_to_base_str(int num, char *str, int base, char type)
 	j = 0;
 	while (num > 0)
 	{
-		if ((num % base) > 9)
+		if ((num % obj->base) > 9)
 		{
-			if (type == 'x')
-				str[i] = ('a' + ((num % base) - 10));
-			if (type == 'X')
-				str[i] = ('A' + ((num % base) - 10));
+			if (obj->flags & F_CAPITAL)
+				str[i] = ('A' + ((num % obj->base) - 10));
+			else
+				str[i] = ('a' + ((num % obj->base) - 10));
 		}
 		else
-			str[i] = ('0' + (num % base));
+			str[i] = ('0' + (num % obj->base));
 		i--;
-		num = num / base;
+		num = num / obj->base;
 	}
 	while (++i < 13)
 		str[j++] = str[i];
 	str[j] = 0;
+    obj->conv_len = j;
+}
+
+
+//////
+
+void    *ft_memset(void *b, int c, unsigned int size)
+{
+    unsigned char   *dst;
+    unsigned int    i;
+
+    i = 0;
+    dst = (unsigned char *)b;
+    while (i < size)
+    {
+        dst[i] = (unsigned char)c;
+        i++;
+    }
+    return (dst);
 }

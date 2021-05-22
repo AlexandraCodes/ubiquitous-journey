@@ -16,48 +16,86 @@
 # include <unistd.h>
 # include <stdlib.h>
 
-typedef struct		s_details
+#include <stdio.h>
+
+# define F_MINUS	(1 << 0)
+# define F_ZERO		(1 << 1)
+# define F_STAR		(1 << 2)
+
+# define F_CAPITAL	(1 << 3)
+
+# define F_CONVSET	(1 << 4)
+
+# define F_PERIOD	(1 << 5)
+# define F_FWIDTH	(1 << 6)
+
+
+
+typedef struct 		s_pf
 {
-	unsigned int	flag:1;
-	unsigned int	min:1;
-	unsigned int	period:1;
-	unsigned int	max:1;
+	char			*str;
+	va_list			list;
 
-	unsigned int	minus:1;
-	unsigned int	zero:1;
+	int				flags;
+	char			item;
+	int				base;
 
-}					t_details;
+	int				conv_len;
+	char			*conv_str;
 
-int		is_minus(char letter);
-int		is_zero(char letter);
-int		is_star(char letter);
-int		is_period(char letter);
-int		is_flag(char letter);
-int		is_integer(char letter);
+	int				field_width;
+	int				precision;
+	
+	char			whitespace;
 
-void	exec_identifier(t_details details, char letter, va_list arg, int *width);
 
-void	print_ptr(void *ptr);
+	int	temp;
+}					t_pf;
 
-void	print_hex(t_details details, int num, int *width, char type);
-char	*convert_to_hex(int val, int x_case);
+typedef void	(*funcPtr)(t_pf*);
 
-void	print_str(t_details details, char *str, int *width);
-int		minimum_word_length(int min, int len);
-int		minimum_space_size(int min_space, int min_word);
-int		print_whitespace(int len);
-void	print_substr(char *str, int len);
+int		ft_printf(char *str, ...);
+int		is_modifier(char letter);
+
+void    parse_modifiers(t_pf *obj);
+void    parse_flags(t_pf *obj);
+void    conversion_launchdeck(t_pf *obj);
+void    parse_conversion(t_pf *obj);
+
+void    create_functions_array(funcPtr *func);
+void    create_base_table(int *tab);
+
+void    four_oh_four(t_pf *obj);
+
+void    put_char(t_pf *obj);
+void    put_str(t_pf *obj);
+void    put_ptr(t_pf *obj);
+void    put_nbr(t_pf *obj);
+void    put_nbr_base(t_pf *obj);
+
 
 char	*ft_strnew(int size);
 int		ft_atoi(char *nptr);
 void	ft_putchar(char c);
-char	*ft_strchr(char *str, int c);
+int		ft_strchr(char *str, char c);
 int		ft_strlen(char *str);
+void    *ft_memset(void *b, int c, unsigned int size);
 
 char	*ft_strcpy(char *dst, char *src);
-void	convert_to_base_str(int num, char *str, int base, char type);
+void	convert_to_base_str(t_pf *obj, int num, char *str);
 
-int		is_present(char modifier, char *type);
-int		ft_printf(char *str, ...);
+void    check_integers(t_pf *obj);
+void    check_precision(t_pf *obj);
+
+char	is_integer(char possible_integer);
+int     is_period(char letter);
+int     is_star(char letter);
+int     is_zero(char letter);
+int     is_minus(char letter);
+void    *ft_memset(void *b, int c, unsigned int size);
+
+void    int_to_str(t_pf *obj, int num, char *str);
+
+
 
 #endif
