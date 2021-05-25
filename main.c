@@ -6,7 +6,7 @@
 /*   By: alecasti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/04 12:41:49 by alecasti          #+#    #+#             */
-/*   Updated: 2021/05/20 16:49:24 by alecasti         ###   ########.fr       */
+/*   Updated: 2021/05/24 22:01:54 by alecasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,32 +22,90 @@ int     main(int ac, char *av[])
     printf("=====================================\n");
 	
 	// int val = -1991687980;
-	int val = 210938;
+	int val = 1;
 	// // char pt[] = "asd";
-	char *str = "hellrhellr";
-	char	c = 'A';
+	// char *str = "hellrhellr";
+	// char	c = 'A';
 
 	// printf("\033[0;31m");
 	// ft_printf("THIS IS YOU -- %*.2d\n", 5, val);
-	printf("\033[0m ya ya ya\n----\n");
+	// printf("\033[0m ya ya ya\n----\n");
 
 	// // ft_printf(":%x:  x\n", val);
 	// // ft_printf(":%d:		d\n", val);
 	// // ft_printf(":%p:		p\n", pt);
 
-	ft_printf(":%0.15x:  x\n", val);
-	ft_printf(":%0.15X:  X\n", val);
-	ft_printf(":%0.15s:  s\n", str);
-	ft_printf(":%0.15c:  c\n", c);
-	ft_printf(":%0.15d:  d\n", val);
+	// ft_printf(":%-15x:  x\n", val);
+	// ft_printf(":%-15X:  X\n", val);
+	// ft_printf(":%-15s:  s\n", str);
+	// ft_printf(":%-15c:  c\n", c);
+	// ft_printf(":%-15d:  d\n", val);
+
+	// printf("\n");
+
+	// ft_printf(":%15x:  x\n", val);
+	// ft_printf(":%15X:  X\n", val);
+	// ft_printf(":%15s:  s\n", str);
+	// ft_printf(":%15c:  c\n", c);
+	// ft_printf(":%15d:  d\n", val);
+
+    // printf("=====================================\n");
+
+	// printf(":%-15x:  x\n", val);
+	// printf(":%-15X:  X\n", val);
+	// printf(":%-15s:  s\n", str);
+	// printf(":%-15c:  c\n", c);
+	// printf(":%-15d:  d\n", val);
+
+	printf("\n");
 
     printf("=====================================\n");
+	printf("========== TESTING FOR -- d =========\n");
+    printf("=====================================\n");
+	printf(":d:\n");
+	printf("\nmy printf -->");
+	ft_printf("|%d|", val);
+	printf("\npc printf --> |%d|\n", val);
 
-	printf(":%0.15x:  x\n", val);
-	printf(":%0.15X:  X\n", val);
-	printf(":%0.15s:  s\n", str);
-	printf(":%0.15c:  c\n", c);
-	printf(":%0.15d:  d\n", val);
+	printf(":-d:\n");
+	printf("\nmy printf --> |");
+	ft_printf("%-d", val);
+	printf("|");
+	printf("\npc printf --> |%-d|\n", val);
+
+	printf(":*d:\n");
+	printf("\nmy printf --> |");
+	ft_printf("%*d", 5, val);
+	printf("|");
+	printf("\npc printf --> |%*d|\n", 5, val);
+
+	printf(":0d:\n");
+	printf("\nmy printf --> |");
+	ft_printf("%0d", val);
+	printf("|");
+	printf("\npc printf --> |%0d|\n", val);
+
+	printf(":-0d:\n");
+	printf("\nmy printf --> |");
+	ft_printf("%-d", val);
+	printf("|");
+	printf("\npc printf --> |%-d|\n", val);
+
+	// printf(":0-d:\n");
+	// printf("\nmy printf --> |");
+	// ft_printf("%0-d", val);
+	// printf("|");
+	// printf("\npc printf --> |%0-d|\n", val);
+
+	// printf("\nmy printf --> |");
+	// printf("\npc printf --> |%d");
+
+
+	// printf(":%15x:  x\n", val);
+	// printf(":%15X:  X\n", val);
+	// printf(":%15s:  s\n", str);
+	// printf(":%15c:  c\n", c);
+	// printf(":%15d:  d\n", val);
 	/*
 	printf(":%15x:  15x\n", val);
 	printf(":%.10x:  .10x\n", val);

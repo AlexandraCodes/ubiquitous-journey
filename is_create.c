@@ -15,7 +15,6 @@ void    check_integers(t_pf *obj)
     }
     str[i] = '\0';
     i = ft_atoi(str);
-    // printf("this is check ints -- %d\n", i);
     if (obj->flags & F_PERIOD)
         obj->precision = i;
     else

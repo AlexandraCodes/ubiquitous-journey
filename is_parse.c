@@ -71,32 +71,46 @@ void    parse_flags(t_pf *obj)
     i = 0;
     j = 0;
 
-    // if (obj->item == 's')
-    // {
+    if (obj->item == 's' || obj->item == 'c')
+    {
         if ((obj->precision < obj->conv_len) && (obj->precision >= 0))
             obj->precision = obj->precision;
         else
             obj->precision = obj->conv_len;
-    // }
-    if (obj->item == 'd' && obj->precision < obj->conv_len)
-        obj->precision = obj->conv_len;
-    // printf("\nthis is conv_len -- >  %d::\n", obj->precision);
+    }
+
+    if (obj->item == 'd' || obj->item == 'x' || obj->item == 'X')
+    {
+        if (obj->precision < obj->conv_len)
+            obj->precision = obj->conv_len;
+        // if (obj->field_width < obj->precision)
+        //     obj->field_width = obj->precision;
+    }
 
     // if (obj->flags & F_FWIDTH)
     // {
-        if ((obj->field_width >= obj->precision) && (obj->field_width >= 0))
-            obj->field_width = obj->field_width;
-        else
-            obj->field_width = obj->precision;
+    if ((obj->field_width >= obj->precision) && (obj->field_width >= 0))
+        obj->field_width = obj->field_width;
+    else
+        obj->field_width = obj->precision;
     // }
+
+    // printf("\nthis is int -- >  %d::\n", obj->precision);
+    // printf("\nthis is int -- >  %d::\n", obj->field_width);
+
+
+    
     // printf("\nthis is int -- >  %d::\n", obj->precision);
     // printf("\nthis is int -- >  %d::\n", obj->field_width);
 
     str = ft_strnew(obj->field_width);
-    if (obj->flags & F_ZERO)
-        obj->whitespace = '0';
+    // printf("\nthis is conv_len -- >  %c::\n", obj->whitespace);
 
-    if ((obj->flags & F_MINUS) || (obj->flags & F_ZERO))
+    if ((obj->flags & F_ZERO) && (obj->item == 'd' || obj->item == 'x' || obj->item == 'X')) 
+        obj->whitespace = '0';
+    // printf("\nthis is conv_len -- >  %c::\n", obj->whitespace);
+
+    if (obj->flags & F_MINUS)
     {
         while (i < obj->precision)
         {
@@ -111,18 +125,29 @@ void    parse_flags(t_pf *obj)
     }
     else
     {
-        i = obj->field_width - obj->precision;
+        // i = obj->field_width - obj->precision;
+        if (obj->item == 's')
+        {
+            while (i < (obj->field_width - obj->precision))
+            {
+                str[i] = obj->whitespace;
+                i++;
+            }
+        }
+        else
+        {
+            while (i < (obj->field_width - obj->conv_len))
+            {
+                str[i] = obj->whitespace;
+                i++;
+            }
+        }
         while (i < obj->field_width)
         {
             // *obj->conv_str++;
             str[i] = obj->conv_str[j];
             i++;
             j++;
-        }
-        while (i < obj->field_width)
-        {
-            str[i] = obj->whitespace;
-            i++;
         }
     }
     obj->str++;
@@ -161,11 +186,11 @@ void    parse_conversion(t_pf *obj)
 {
     obj->flags = 0;
     obj->whitespace = ' ';
+    obj->field_width = -1;
 
     parse_modifiers(obj);
 
     obj->item = *obj->str;
-    // printf("this is obj->item -- %c\n\n", obj->item);
 
     conversion_launchdeck(obj);
 }
